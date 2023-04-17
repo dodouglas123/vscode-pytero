@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Configuração</h1>
+    <form onsubmit="return validateForm()">
+      <label for="token">Token:</label>
+      <input type="text" id="token" name="token" required />
+      <br />
+      <label for="link">Link:</label>
+      <input type="text" id="link" name="link" required />
+      <br />
+      <input type="submit" value="Submit" />
+    </form>
+    <p id="formValidation"></p>
+    <script>
+      function validateForm() {
+        let token = document.getElementById("token").value;
+        let link = document.getElementById("link").value;
+        let formValidationMessage = document.getElementById("formValidation");
+        const vscode = acquireVsCodeApi();
+
+        if (!token) {
+          formValidationMessage.innerHTML = "Please fill out the Token field";
+          return false;
+        } else if (!token.startsWith("ptlc_")) {
+          formValidationMessage.innerHTML = "Please provide a valid token";
+          return false;
+        } else if (!link) {
+          formValidationMessage.innerHTML = "Please fill out the Link field";
+          return false;
+        } else if (!link.startsWith("http")) {
+          formValidationMessage.innerHTML = "Please provide a valid link";
+          return false;
+        } else {
+          vscode.postMessage({ token: token, url: link });
+          formValidationMessage.innerHTML = "Form submitted successfully";
+          return true;
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,260 @@
+{
+  "name": "pterodactyl-vscode-extensions",
+  "license": "MIT",
+  "displayName": "Pterodactyl-vscode-extensions",
+  "icon": "resources/icons/ptero.png",
+  "galleryBanner": {
+    "color": "#5865F2",
+    "theme": "dark"
+  },
+  "publisher": "pterodactyl",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dodouglas123/vscode-pytero.git"
+  },
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.71.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "pterodactyl",
+    "pterodactyl.servers",
+    "pterodactylvscode",
+    "pterodactyl-vscode",
+    "pterodactyl-extension"
+  ],
+  "activationEvents": [
+    "onCommand:pterodactyl-servers.helpButton",
+    "onCommand:pterodactyl-servers.refreshButton",
+    "onCommand:pterodactyl-servers.importCode",
+    "onCommand:pterodactyl-servers.deleteEntry",
+    "onCommand:pterodactyl-servers.startEntry",
+    "onCommand:pterodactyl-servers.stopEntry",
+    "onCommand:pterodactyl-servers.restartEntry",
+    "onCommand:pterodactyl-servers.logsEntry",
+    "onCommand:pterodactyl-servers.statusEntry",
+    "onCommand:pterodactyl-servers.backupEntry",
+    "onDidReceiveMessage:pterodactyl.config",
+    "onCommand:pterodactyl.config",
+    "onCommand:pterodactyl.commit",
+    "onCommand:pterodactyl.upload",
+    "onView:pterodactyl-servers.refreshButton",
+    "onView:pterodactyl-servers.helpButton",
+    "*"
+  ],
+  "main": "extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "pterodactyl-servers.helpButton",
+        "title": "Pterodactyl Help",
+        "icon": {
+          "light": "resources/light/helper.svg",
+          "dark": "resources/dark/helper.svg"
+        }
+      },
+      {
+        "command": "pterodactyl-servers.refreshButton",
+        "title": "Recarregar Apps",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "pterodactyl-servers.importCode",
+        "title": "Importar app para o vscode",
+        "icon": {
+          "light": "resources/light/code.svg",
+          "dark": "resources/dark/code.svg"
+        }
+      },
+      {
+        "command": "pterodactyl-servers.deleteEntry",
+        "title": "Delete App",
+        "icon": {
+          "light": "resources/light/del.svg",
+          "dark": "resources/dark/del.svg"
+        }
+      },
+      {
+        "command": "pterodactyl.commit",
+        "title": "Commit"
+      },
+      {
+        "command": "pterodactyl.upload",
+        "title": "Upload"
+      },
+      {
+        "command": "pterodactyl-servers.startEntry",
+        "title": "Start"
+      },
+      {
+        "command": "pterodactyl-servers.stopEntry",
+        "title": "Stop"
+      },
+      {
+        "command": "pterodactyl-servers.restartEntry",
+        "title": "Restart"
+      },
+      {
+        "command": "pterodactyl-servers.logsEntry",
+        "title": "Logs"
+      },
+      {
+        "command": "pterodactyl-servers.statusEntry",
+        "title": "Status"
+      },
+      {
+        "command": "pterodactyl-servers.backupEntry",
+        "title": "Backup"
+      },
+      {
+        "command": "pterodactyl.config",
+        "title": "config do painel"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "pterodactyl-sidebar",
+          "title": "Pterodactyl",
+          "icon": "resources/icons/ptero.svg"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "pterodactyl-servers",
+        "contents": "Você ainda não forneceu um token e url para ter acesso aos recursos do pterodactyl.\n[Envie seu token e url](command:pterodactyl.config)",
+        "when": "!config.pterodactyl.token"
+      }
+    ],
+    "views": {
+      "pterodactyl-sidebar": [
+        {
+          "type": "tree",
+          "id": "pterodactyl-servers",
+          "name": "Servers",
+          "visibility": "visible"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "pterodactyl-servers.helpButton",
+          "when": "view == pterodactyl-servers",
+          "group": "navigation"
+        },
+        {
+          "command": "pterodactyl-servers.refreshButton",
+          "when": "editorIsOpen && view == pterodactyl-servers",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "pterodactyl-servers.deleteEntry",
+          "when": "view == pterodactyl-servers",
+          "group": "inline"
+        },
+        {
+          "command": "pterodactyl-servers.importCode",
+          "when": "view == pterodactyl-servers",
+          "group": "inline"
+        },
+        {
+          "command": "pterodactyl-servers.startEntry",
+          "when": "view == pterodactyl-servers"
+        },
+        {
+          "command": "pterodactyl-servers.stopEntry",
+          "when": "view == pterodactyl-servers"
+        },
+        {
+          "command": "pterodactyl-servers.restartEntry",
+          "when": "view == pterodactyl-servers"
+        },
+        {
+          "command": "pterodactyl-servers.logsEntry",
+          "when": "view == pterodactyl-servers"
+        },
+        {
+          "command": "pterodactyl-servers.statusEntry",
+          "when": "view == pterodactyl-servers"
+        },
+        {
+          "command": "pterodactyl-servers.backupEntry",
+          "when": "view == pterodactyl-servers"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "pterodactyl.commit",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "submenu": "pterodactylsub",
+          "group": "1_modification"
+        }
+      ],
+      "pterodactylsub": [
+        {
+          "command": "pterodactyl.commit"
+        }
+      ]
+    },
+    "submenus": [
+      {
+        "label": "pterodactyl",
+        "id": "pterodactylsub"
+      }
+    ],
+    "configuration": {
+      "title": "Pterodactyl",
+      "properties": {
+        "pterodactyl.token": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Seu token do [pterodactyl](https://pterodactyl.io/)."
+        },
+        "pterodactyl.url": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Seu url do [pterodactyl](https://pterodactyl.io/)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "yarn run lint",
+    "start": "node ."
+  },
+  "dependencies": {
+    "@vscode/webview-ui-toolkit": "^1.2.1",
+    "adm-zip": "^0.5.9",
+    "archiver": "^5.3.1",
+    "axios": "^1.2.6",
+    "glob": "^8.0.3",
+    "moment": "^2.29.4",
+    "moment-duration-format": "^2.3.2",
+    "path": "^0.12.7",
+    "undici": "^5.10.0",
+    "ws": "^8.12.0"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.74.0",
+    "@vscode/test-electron": "^2.1.5",
+    "eslint": "^8.20.0",
+    "mocha": "^10.0.0",
+    "typescript": "^4.7.4"
+  }
+}
